@@ -1,10 +1,8 @@
-* text=auto eol=lf
+*.php linguist-detectable=true
+*.Laravel linguist-detectable=true
+*.vue linguist-detectable=true
 
-*.blade.php diff=html
-*.css diff=css
-*.html diff=html
-*.md diff=markdown
-*.php diff=php
+
 
 /.github export-ignore
 CHANGELOG.md export-ignore
