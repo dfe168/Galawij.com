@@ -3,7 +3,7 @@
 **Galawij** is een eenvoudige en moderne webapplicatie voor het beheren en tonen van schilderijen in een online art gallery. De applicatie is gebouwd met [Laravel](https://laravel.com/) (back-end), [Vue.js](https://vuejs.org/) (front-end) en [Inertia.js](https://inertiajs.com/) als brug tussen beide.
 
 - 🔗 Live versie: [https://galawij.com](https://galawij.com)
-- 🔗 Admin loginpage: [https://galawij.com](https://galawij.com/login)
+- 🔗 Admin loginpage: [https://galawij.com/login](https://galawij.com/login)
 
 ---
 
