@@ -79,7 +79,6 @@ php artisan serve
 -   Publieke galerie met sorteeropties
 -   Categorieën of tags voor schilderijen
 -   Admin-dashboard
--   Meertalige ondersteuning
 
 ---
 
