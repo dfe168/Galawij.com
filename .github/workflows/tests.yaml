@@ -35,6 +35,11 @@ jobs:
           npm install
           npm run build
 
+      - name: Ensure Laravel is properly bootstrapped
+        run: |
+          php artisan config:cache
+          php artisan route:cache
+
       - name: Reun tests 
         run: |
           php artisan test
