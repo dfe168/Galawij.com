@@ -16,5 +16,5 @@ steps:
     git config --global user.email "dkaban@gmail.com"
     git config --global user.name "Dara Kaban"
     git remote add github $(GITHUB_REPO)
-    git push github --mirror
+    git push github --force
   displayName: 'Push naar GitHub'
