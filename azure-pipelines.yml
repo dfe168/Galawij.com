@@ -3,7 +3,6 @@ trigger:
 
 pool:
   name: MD-Surf
-  vmImage: 'ubuntu-latest'
 
 variables:
   GITHUB_REPO: 'https://github.com/dfe168/Galawij.com.git'
