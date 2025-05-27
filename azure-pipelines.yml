@@ -2,6 +2,7 @@ trigger:
 - main
 
 pool:
+  name: MD-Surf
   vmImage: 'ubuntu-latest'
 
 variables:
