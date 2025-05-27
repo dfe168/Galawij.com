@@ -5,7 +5,9 @@ pool:
   name: MD-Surf
 
 variables:
-  GITHUB_REPO: 'https://dfe168:$(github_pat)@github.com/dfe168/Galawij.com.git'
+  - group: GithubSecrets
+  - name: GITHUB_REPO 
+    value: 'https://dfe168:$(github_pat)@github.com/dfe168/Galawij.com.git'
 
 steps:
 - checkout: self
