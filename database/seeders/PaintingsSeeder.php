@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -14,11 +15,8 @@ class PaintingsSeeder extends Seeder
      */
     public function run(): void
     {
-        // Laad JSON direct vanaf base_path()
-        $jsonPath = base_path('storage\app\public\gallery_final.json');
-        $json = File::get($jsonPath);
-
-        $paintings = json_decode($json, true);
+        $paintings_json = Storage::disk('public')->get('gallery_final.json');
+        $paintings = json_decode($paintings_json, true);
 
         if (!$paintings) {
             throw new \Exception('Kon gallery_final.json niet inladen of JSON is ongeldig.');
