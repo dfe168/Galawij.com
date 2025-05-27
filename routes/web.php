@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 
 //public
 Route::get('/', function () {
-    return Inertia::render('Home');
-})->name('home');
+    return redirect('home');
+})->name('homepage');
 
 Route::inertia('/home', 'Home')
     ->name('home');
