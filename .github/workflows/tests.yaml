@@ -27,7 +27,7 @@ jobs:
 
       - name: Run composer
         run: |
-          composer Install --no-intraction
+          composer Install --no-interaction
 
       - name: Reun tests 
         run: |
