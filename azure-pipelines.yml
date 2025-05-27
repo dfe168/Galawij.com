@@ -5,18 +5,14 @@ pool:
   name: MD-Surf
 
 variables:
-  GITHUB_REPO: 'https://github.com/dfe168/Galawij.com.git'
+  GITHUB_REPO: 'https://dfe168:$(github_pat)@github.com/dfe168/Galawij.com.git'
 
 steps:
 - checkout: self
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      git config --global user.email "dkaban@gmail.com"
-      git config --global user.name "Dara Kaban"
-      git remote add github https://dfe168:$(github_pat)@github.com/dfe168/Galawij.com.git
-
-      git remote add github $(GITHUB_REPO)
-      git push github --mirror
+- script: |
+    git config --global user.email "dkaban@gmail.com"
+    git config --global user.name "Dara Kaban"
+    git remote add github $(GITHUB_REPO)
+    git push github --mirror
+  displayName: 'Push naar GitHub'
