@@ -2,3 +2,4 @@
 !.gitignore
 !./img/*
 !./paintings/*
+!gallery_final.json
