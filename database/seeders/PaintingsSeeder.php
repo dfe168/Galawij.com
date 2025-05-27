@@ -15,7 +15,7 @@ class PaintingsSeeder extends Seeder
     public function run(): void
     {
         // Laad JSON direct vanaf base_path()
-        $jsonPath = base_path('storage\app\private\gallery_final.json');
+        $jsonPath = base_path('storage\app\public\gallery_final.json');
         $json = File::get($jsonPath);
 
         $paintings = json_decode($json, true);
