@@ -8,12 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactFormController;
 use Illuminate\Http\Request;
 
-//public
-Route::get('/', function () {
-    return redirect('home');
-})->name('homepage');
-
-Route::inertia('/home', 'Home')
+Route::inertia('/', 'Home')
     ->name('home');
 
 Route::inertia('/about', 'About')
