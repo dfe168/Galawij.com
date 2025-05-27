@@ -32,9 +32,12 @@ Route::middleware('auth')->group(function () {
             return Inertia::render('Dashboard/User', ['userInfo' => $userInfo]);
         })->name('dashboard.user');
 
-        Route::inertia('/contacts', 'Dashboard/Contacts', ['messages' => function () {
-            return app(ContactFormController::class)->messages();
-        }])->name('dashboard.contacts');
+        Route::get('contacts', function () {
+            $messages = app(ContactFormController::class)->messages();
+            return Inertia::render('Dashboard/Contacts', [
+                'messages' => $messages,
+            ]);
+        })->name('dashboard.contacts');
     });
 
     Route::post('/paintings', [PaintingsController::class, 'create'])->name('paintings.create');
