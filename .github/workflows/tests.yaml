@@ -28,6 +28,13 @@ jobs:
       - name: Run composer
         run: |
           composer Install --no-interaction
+          php artisan key:generate
+          php artisan migrate --seed
+
+      - name: Run npm
+        run: |
+          npm install
+          npm run build
 
       - name: Reun tests 
         run: |
