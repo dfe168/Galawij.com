@@ -13,3 +13,5 @@ jobs:
     needs: run-tests
     if: ${{ success() }}
     uses: dfe168/Galawij.com/.github/workflows/deploy.yaml@main
+    with: {}
+    secrets: inherit
