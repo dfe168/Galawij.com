@@ -1,4 +1,4 @@
-name: Deploy to production Server
+name: Deploy
 
 on:
   workflow_call:
