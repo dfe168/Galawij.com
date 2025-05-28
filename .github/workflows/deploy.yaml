@@ -6,6 +6,7 @@ on:
 jobs:
   Deploy: 
    runs-on: ubuntu-latest
+   environment: production
 
    steps:
     - name: Checkout Code
@@ -14,9 +15,9 @@ jobs:
     - name: Run remote shell commands
       uses: appleboy/ssh-action@v1
       with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
           port: 22
           script: |
             cd ${{ secrets.REMOTE_TARGET }}
