@@ -43,6 +43,9 @@ class PaintingsController extends Controller
         $fields = array_merge($validated, ['img' => $imgName]);
 
         Paintings::create($fields);
+
+        return redirect()->route('dashboard.home')
+            ->with('success', "{$validated['name']} Painting created");
     }
 
     public function update(Request $request, int $id)
