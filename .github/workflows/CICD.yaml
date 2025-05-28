@@ -7,9 +7,9 @@ on:
 
 jobs:
   run-tests:
-    uses: ./.github/workflows/test.yaml
+    uses: dfe168/Galawij.com/.github/workflows/tests.yaml@main
 
   deploy:
     needs: run-tests
     if: ${{ success() }}
-    uses: ./.github/workflows/deploy.yaml
+    uses: dfe168/Galawij.com/.github/workflows/deploy.yaml
