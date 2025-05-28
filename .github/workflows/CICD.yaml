@@ -12,4 +12,4 @@ jobs:
   deploy:
     needs: run-tests
     if: ${{ success() }}
-    uses: dfe168/Galawij.com/.github/workflows/deploy.yaml
+    uses: dfe168/Galawij.com/.github/workflows/deploy.yaml@main
