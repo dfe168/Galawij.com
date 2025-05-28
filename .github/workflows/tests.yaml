@@ -44,7 +44,12 @@ jobs:
 
       - name: Reun tests 
         run: |
-          php artisan test
+          php artisan test > test-output.log
+          cat test-output.log
+          if grep -q "FAIL" test-output.log; then
+            echo "Test failure detected"
+            exit 1
+          fi
 
       
 
