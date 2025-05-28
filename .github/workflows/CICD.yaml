@@ -1,0 +1,15 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    uses: ./.github/workflows/test.yaml
+
+  deploy:
+    needs: run-tests
+    if: ${{ success() }}
+    uses: ./.github/workflows/deploy.yaml

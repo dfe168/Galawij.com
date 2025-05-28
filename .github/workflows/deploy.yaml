@@ -1,9 +1,7 @@
 name: Deploy to production Server
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
       
 jobs:
   Deploy: 
@@ -12,38 +10,8 @@ jobs:
    steps:
     - name: Checkout Code
       uses: actions/checkout@v4
-
-    - name: Install PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php_version: 8.2
-
-    - name: Install Composer dependencies
-      run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
-
-    - name: Install Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20.x
-
-    - name: Install npm dependencies
-      run: npm install
-
-    - name: Run NPM build 
-      run: npm run build --if-present
-      
-    - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@main
-      with:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        ARGS: "-rlgoDzvc -i --delete"
-        SOURCE: "."
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        TARGET: ${{ secrets.REMOTE_TARGET }}
-        EXCLUDE: "/vendor/, /node_modules/, .env"
-    
-    - name: Run remote Artisan commands
+     
+    - name: Run remote shell commands
       uses: appleboy/ssh-action@v1
       with:
           host: ${{ secrets.REMOTE_HOST }}
@@ -52,6 +20,7 @@ jobs:
           port: 22
           script: |
             cd ${{ secrets.REMOTE_TARGET }}
+            git pull origin main
             php artisan migrate --force
             php artisan optimize
 
