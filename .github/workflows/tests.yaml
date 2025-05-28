@@ -44,12 +44,13 @@ jobs:
 
       - name: Reun tests 
         run: |
-          php artisan test > test-output.log
-          cat test-output.log
-          if grep -q "FAIL" test-output.log; then
-            echo "Test failure detected"
-            exit 1
-          fi
+          php artisan test
+
+      - name: Upload test output
+        uses: actions/upload-artifact@v4
+        with:
+          name: laravel-test-output
+          path: test-output.log
 
       
 
