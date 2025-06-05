@@ -7,23 +7,28 @@ use App\Http\Requests\StorePaintingRequest;
 use App\Http\Requests\UpdatePaintingRequest;
 use App\Models\Paintings;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Http\Concerns\InteractsWithFlashData;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class PaintingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): Paginator
+    public function index(Request $request)
     {
 
         $paintings = Paintings::query()->when($request->search, function ($query) use ($request) {
             $query->where('name', 'like', '%' . $request->search . '%');
         })->orderBy('id', 'desc')->paginate(9)->withQueryString();
 
-        return $paintings;
+        return Inertia::render('Dashboard/Home', [
+            'paintings' => $paintings,
+            'searchTerm' => $request->search,
+        ]);
     }
 
     /**
