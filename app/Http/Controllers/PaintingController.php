@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\StoreImageFileAction;
 use App\Http\Requests\StorePaintingRequest;
 use App\Http\Requests\UpdatePaintingRequest;
 use App\Models\Paintings;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +16,7 @@ class PaintingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): Paginator
     {
 
         $paintings = Paintings::query()->when($request->search, function ($query) use ($request) {
@@ -26,15 +29,12 @@ class PaintingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(StorePaintingRequest $request)
+    public function create(StorePaintingRequest $request, StoreImageFileAction $storeImageFileAction): RedirectResponse
     {
         $validated = $request->validated();
 
         if ($request->hasFile('img')) {
-            $imgName = uniqid() . "." . $validated['img']->getClientOriginalExtension();
-
-            Storage::disk('public')
-                ->putFileAs('paintings', $request->file('img'), $imgName); //img toevoegen
+            $imgName = $storeImageFileAction->handle($validated['img']);
         }
 
         $validated['img'] = $imgName;
@@ -45,7 +45,7 @@ class PaintingController extends Controller
             ->with('success', "{$validated['name']} Painting created");
     }
 
-    public function update(UpdatePaintingRequest $request, int $id)
+    public function update(UpdatePaintingRequest $request, int $id, StoreImageFileAction $storeImageFileAction): RedirectResponse
     {
 
         $validated = $request->validated();
@@ -53,8 +53,7 @@ class PaintingController extends Controller
         $painting = Paintings::findOrFail($id);
 
         if ($request->hasFile('img')) {
-            $imgName = uniqid() . "." . $validated['img']->getClientOriginalExtension();
-            Storage::disk('public')->putFileAs('paintings', $validated['img'], $imgName); //img toevoegen
+            $imgName = $storeImageFileAction->handle($validated['img']);
         }
 
         $validated['img'] = ($request->hasFile('img')) ? $imgName : $painting->img;
@@ -69,7 +68,7 @@ class PaintingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
+    public function destroy(int $id): void
     {
         Paintings::destroy($id);
     }
