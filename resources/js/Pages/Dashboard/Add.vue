@@ -23,7 +23,7 @@ const props = defineProps({
 });
 
 const submit = () => {
-    form.post(route("paintings.create"), {
+    form.post(route("painting.create"), {
         onSuccess: () => {
             router.visit(route("dashboard.home"));
         },

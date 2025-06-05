@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PaintingsController;
+use App\Http\Controllers\PaintingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactFormController;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ Route::inertia('/about', 'About')
     ->name('about');
 
 Route::get('/gallery', function (Request $request) {
-    $paintings = app(PaintingsController::class)->index($request);
+    $paintings = app(PaintingController::class)->index($request);
     return Inertia::render('Gallery', ['paintings' => $paintings]);
 })->name('gallery');
 

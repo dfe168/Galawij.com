@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PaintingsController;
+use App\Http\Controllers\PaintingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactFormController;
@@ -14,7 +14,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/', function (Request $request) {
 
-            $paintings = app(PaintingsController::class)->index($request);
+            $paintings = app(PaintingController::class)->index($request);
             return Inertia::render('Dashboard/Home', [
                 'paintings' => $paintings,
                 'searchTerm' => $request->search,
@@ -40,9 +40,9 @@ Route::middleware('auth')->group(function () {
         })->name('dashboard.contacts');
     });
 
-    Route::post('/paintings', [PaintingsController::class, 'create'])->name('paintings.create');
-    Route::post('/paintings/{id}', [PaintingsController::class, 'update'])->name('painting.update'); //Browsers ondersteunen geen bestandsuploads via PUT of PATCH!!
-    Route::delete('/paintings/{id}', [PaintingsController::class, 'destroy'])->name('painting.delete');
+    Route::post('/painting', [PaintingController::class, 'create'])->name('painting.create');
+    Route::post('/painting/{id}', [PaintingController::class, 'update'])->name('painting.update'); //Browsers ondersteunen geen bestandsuploads via PUT of PATCH!!
+    Route::delete('/painting/{id}', [PaintingController::class, 'destroy'])->name('painting.delete');
 
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
