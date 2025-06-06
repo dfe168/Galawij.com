@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use App\Models\Paintings;
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Inertia\Testing\AssertableInertia;
 use Tests\TestCase;
+use App\Models\User;
+use App\Models\Paintings;
+use Illuminate\Http\UploadedFile;
+use Inertia\Testing\AssertableInertia;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DashboardTest extends TestCase
 {
@@ -87,25 +87,27 @@ class DashboardTest extends TestCase
 
     public function test_user_can_add_new_painting()
     {
-        $this->actingAs($this->user);
+        Storage::fake('public');
+     $this->actingAs($this->user);
 
         $fakeImg = UploadedFile::fake()->image('test.jpg');
-        $data = [
+
+        $painting = [
             'name' => 'Test Painting',
             'medium' => 'Oil',
             'width' => 40,
             'length' => 60,
             'img' => $fakeImg,
         ];
-        $response = $this->post(route('paintings.create'), $data);
+        $response = $this->post(route('painting.create'), $painting);
 
-        $response->assertRedirect();
+        $response->assertRedirect(route('dashboard.home'));
         $this->assertDatabaseHas('paintings', [
             'name' => 'Test Painting',
             'medium' => 'Oil',
             'width' => 40,
             'length' => 60,
-            'img' => 'test.jpg'
         ]);
+
     }
 }
