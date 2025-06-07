@@ -2,14 +2,13 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Paintings;
-use Illuminate\Http\UploadedFile;
-use Inertia\Testing\AssertableInertia;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Inertia\Testing\AssertableInertia;
+use Tests\TestCase;
 
 class DashboardTest extends TestCase
 {
@@ -17,8 +16,7 @@ class DashboardTest extends TestCase
 
     private $user;
 
-
-    public function setup(): void
+    protected function setup(): void
     {
         parent::setUp();
 
@@ -88,7 +86,7 @@ class DashboardTest extends TestCase
     public function test_user_can_add_new_painting()
     {
         Storage::fake('public');
-     $this->actingAs($this->user);
+        $this->actingAs($this->user);
 
         $fakeImg = UploadedFile::fake()->image('test.jpg');
 
@@ -108,6 +106,61 @@ class DashboardTest extends TestCase
             'width' => 40,
             'length' => 60,
         ]);
+    }
 
+    public function test_user_can_search_for_a_painting_by_name(): void
+    {
+        $this->actingAs($this->user);
+
+        $painting = Paintings::factory(5)->create();
+
+        $response = $this->get(route(
+            'dashboard.home',
+            [
+                'search' => $painting[0]->name,
+            ]
+        ));
+
+        $response->assertInertia(
+            function (AssertableInertia $page) use ($painting): AssertableInertia {
+                return $page
+                    ->component('Dashboard/Home')
+                    ->where('searchTerm', $painting[0]->name)
+                    ->has('paintings.data.0.name')
+                    ->has('paintings.data.0.id');
+            }
+        );
+    }
+
+    public function test_user_can_register_new_user(): void
+    {
+        $this->actingAs($this->user);
+
+        $this->post(route('register', [
+            'name' => 'test',
+            'email' => 'test@test.com',
+            'password' => '12345678',
+            'password_confirmation' => '12345678'
+        ]));
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'test',
+            'email' => 'test@test.com',
+        ]);
+    }
+
+    public function test_user_can_update_own_profile_info(): void
+    {
+        $this->actingAs($this->user);
+
+        $this->put("/users/{$this->user->id}", [
+            "name" => "Test User",
+            "email" => "test@test.com",
+        ]);
+
+        $this->assertDatabaseHas("users", [
+            "name" => "Test User",
+            "email" => "test@test.com",
+        ]);
     }
 }
