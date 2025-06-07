@@ -1,5 +1,27 @@
 <script setup>
-import NavItem from "../components/NavItem.vue";
+    import NavItem from "../components/NavItem.vue";
+    import { Link } from "@inertiajs/vue3";
+
+    const toggleButton = document.querySelector(
+        '[data-collapse-toggle="mobile-menu"]'
+    );
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
+
+    if (toggleButton && mobileMenu) {
+        toggleButton.addEventListener("click", () => {
+            const isExpanded = toggleButton.getAttribute("aria-expanded") === "true";
+            toggleButton.setAttribute("aria-expanded", !isExpanded);
+            mobileMenu.classList.toggle("hidden");
+        });
+    }
+
+    menuLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+            toggleButton.setAttribute("aria-expanded", false);
+            mobileMenu.classList.add("hidden");
+        });
+    });
 </script>
 
 <template>
@@ -95,35 +117,7 @@ import NavItem from "../components/NavItem.vue";
         </nav>
     </header>
 </template>
-<script>
-import { Link } from "@inertiajs/vue3";
 
-export default {
-    mounted() {
-        const toggleButton = document.querySelector(
-            '[data-collapse-toggle="mobile-menu"]'
-        );
-        const mobileMenu = document.getElementById("mobile-menu");
-        const menuLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
-
-        if (toggleButton && mobileMenu) {
-            toggleButton.addEventListener("click", () => {
-                const isExpanded =
-                    toggleButton.getAttribute("aria-expanded") === "true";
-                toggleButton.setAttribute("aria-expanded", !isExpanded);
-                mobileMenu.classList.toggle("hidden");
-            });
-
-            menuLinks.forEach((link) => {
-                link.addEventListener("click", () => {
-                    toggleButton.setAttribute("aria-expanded", false);
-                    mobileMenu.classList.add("hidden");
-                });
-            });
-        }
-    },
-};
-</script>
 
 <style scoped>
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
