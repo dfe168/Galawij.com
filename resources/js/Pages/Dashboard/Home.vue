@@ -161,6 +161,9 @@ function closeEditModal() {
                             Size (With x Length)
                         </th>
                         <th class="p-4 text-center transition-colors border-y">
+                            Owner
+                        </th>
+                        <th class="p-4 text-center transition-colors border-y">
                             Action
                         </th>
                     </tr>
@@ -185,6 +188,9 @@ function closeEditModal() {
                         </td>
                         <td class="p-4 border-b border-blue-gray-50">
                             {{ painting.width }} X {{ painting.length }}
+                        </td>
+                        <td class="p-4 border-b border-blue-gray-50">
+                            {{ painting.user.name }}
                         </td>
                         <td class="p-4 border-b border-blue-gray-50">
                             <button

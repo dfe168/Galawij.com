@@ -22,6 +22,7 @@ class PaintingsSeeder extends Seeder
 
         foreach ($paintings as $painting) {
             DB::table('paintings')->insert([
+                'user_id' => 1,
                 'img' => $painting['img'] ?? null,
                 'name' => $painting['name'] ?? null,
                 'medium' => $painting['medium'] ?? null,

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Paintings extends Model
 {
@@ -17,6 +19,7 @@ class Paintings extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'user_id',
         'img',
         'name',
         'medium',
@@ -33,6 +36,15 @@ class Paintings extends Model
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * relationships 
+     * 
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Get the attributes that should be cast.

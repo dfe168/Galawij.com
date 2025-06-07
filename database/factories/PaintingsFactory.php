@@ -17,6 +17,7 @@ class PaintingsFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => 1,
             'img' => $this->faker->imageUrl(),
             'name' => $this->faker->name(),
             'medium' => $this->faker->randomElement(['Oil', 'Acril', 'Watercolor']),

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePaintingRequest;
 use App\Models\Paintings;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -18,10 +19,12 @@ class PaintingController extends Controller
      */
     public function index(Request $request)
     {
-
-        $paintings = Paintings::query()->when($request->search, function ($query) use ($request) {
-            $query->where('name', 'like', '%'.$request->search.'%');
-        })->orderBy('id', 'desc')->paginate(9)->withQueryString();
+        $paintings = Paintings::when($request->search, function ($query) use ($request) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        })
+            ->with('user')
+            ->orderBy('id', 'desc')->paginate(9)
+            ->withQueryString();
 
         return Inertia::render('Dashboard/Home', [
             'paintings' => $paintings,
@@ -41,6 +44,7 @@ class PaintingController extends Controller
         }
 
         $validated['img'] = $imgName;
+        $validated['user_id'] = Auth::id();
 
         Paintings::create($validated);
 
@@ -60,6 +64,7 @@ class PaintingController extends Controller
         }
 
         $validated['img'] = ($request->hasFile('img')) ? $imgName : $painting->img;
+        $validated['user_id'] = Auth::id();
 
         $painting->update($validated);
 
