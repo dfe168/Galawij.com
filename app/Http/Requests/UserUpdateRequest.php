@@ -24,7 +24,7 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . Auth::user()->id,
+            'email' => 'required|email|max:255|unique:users,email,'.Auth::user()->id,
             'current_password' => 'nullable|required_with:password|string',
             'password' => 'nullable|string|min:4|confirmed',
         ];

@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Contracts\Cache\Store;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class PaintingsSeeder extends Seeder
@@ -18,7 +16,7 @@ class PaintingsSeeder extends Seeder
         $paintings_json = Storage::disk('public')->get('gallery_final.json');
         $paintings = json_decode($paintings_json, true);
 
-        if (!$paintings) {
+        if (! $paintings) {
             throw new \Exception('Kon gallery_final.json niet inladen of JSON is ongeldig.');
         }
 

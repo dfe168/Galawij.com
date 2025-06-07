@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
@@ -18,6 +16,7 @@ class UserController extends Controller
     public function show()
     {
         $user = Auth::getUser();
+
         return Inertia::render('Dashboard/User', ['userInfo' => $user]);
     }
 
@@ -31,8 +30,8 @@ class UserController extends Controller
         $user = User::findOrFail($userId);
 
         // Check and update password if provided
-        if (!empty($request->current_password)) {
-            if (!Hash::check($request->current_password, $user->password)) {
+        if (! empty($request->current_password)) {
+            if (! Hash::check($request->current_password, $user->password)) {
                 return back()->withErrors([
                     'password' => 'Current password inccorect.',
                 ])->onlyInput('current_password');

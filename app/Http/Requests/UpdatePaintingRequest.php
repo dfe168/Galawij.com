@@ -22,11 +22,11 @@ class UpdatePaintingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'img' => "nullable|image|max:2048",
-            'name' => "required|string",
-            'medium' => "required|string",
-            'length' => "required|integer|min:2|max:1000",
-            'width' => "required|integer|min:2|max:1000"
+            'img' => 'nullable|image|max:2048',
+            'name' => 'required|string',
+            'medium' => 'required|string',
+            'length' => 'required|integer|min:2|max:1000',
+            'width' => 'required|integer|min:2|max:1000',
         ];
     }
 }

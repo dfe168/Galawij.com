@@ -6,8 +6,6 @@ use App\Actions\StoreImageFileAction;
 use App\Http\Requests\StorePaintingRequest;
 use App\Http\Requests\UpdatePaintingRequest;
 use App\Models\Paintings;
-use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Http\Concerns\InteractsWithFlashData;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -22,7 +20,7 @@ class PaintingController extends Controller
     {
 
         $paintings = Paintings::query()->when($request->search, function ($query) use ($request) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $query->where('name', 'like', '%'.$request->search.'%');
         })->orderBy('id', 'desc')->paginate(9)->withQueryString();
 
         return Inertia::render('Dashboard/Home', [
@@ -66,7 +64,7 @@ class PaintingController extends Controller
         $painting->update($validated);
 
         return redirect()
-            ->route('dashboard.home',)
+            ->route('dashboard.home')
             ->with('success', 'Painting updated.');
     }
 

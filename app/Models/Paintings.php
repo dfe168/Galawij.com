@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 class Paintings extends Model
@@ -21,7 +21,7 @@ class Paintings extends Model
         'name',
         'medium',
         'width',
-        'length'
+        'length',
     ];
 
     /**
@@ -31,7 +31,7 @@ class Paintings extends Model
      */
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     /**

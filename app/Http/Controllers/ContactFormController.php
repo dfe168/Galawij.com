@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactFormRequest;
-use Illuminate\Http\Request;
 use App\Models\ContactForm;
 use Inertia\Inertia;
 

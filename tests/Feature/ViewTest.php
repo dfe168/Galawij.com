@@ -7,7 +7,6 @@ use Tests\TestCase;
 
 class ViewTest extends TestCase
 {
-
     use RefreshDatabase;
 
     /**
@@ -27,7 +26,6 @@ class ViewTest extends TestCase
 
     public function test_gallery_page_is_up(): void
     {
-
 
         $response = $this->get('/gallery');
 
