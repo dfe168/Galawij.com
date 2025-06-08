@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 
 defineProps({
-    message: Object,
+    message: [String, Object],
     alertType: {
         type: String,
         default: "error",

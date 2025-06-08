@@ -176,7 +176,7 @@ function closeEditModal() {
                         <td class="p-4 border-b border-blue-gray-50">
                             <img
                                 :src="'/storage/paintings/' + painting.img"
-                                alt="John Michael"
+                                alt="painting"
                                 class="relative inline-block h-10 w-10 !rounded-full object-cover object-center"
                             />
                         </td>
